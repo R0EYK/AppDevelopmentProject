@@ -12,4 +12,21 @@ const getAllPosts = async (req, res) => {
   }
 };
 
-module.exports = { getAllPosts };
+const getPost = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const post = await postModel.findById(id);
+    if (!post) {
+      return res
+        .status(400)
+        .json({ message: "Could not find post with the specified id" });
+    }
+    res.status(200).json(post);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error fetching post", error: error.message });
+  }
+};
+
+module.exports = { getAllPosts, getPost };
