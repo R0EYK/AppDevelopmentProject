@@ -46,4 +46,18 @@ const getPostsByUploaderId = async (req, res) => {
   }
 };
 
-module.exports = { getAllPosts, getPost, getPostsByUploaderId };
+const createPost = async (req, res) => {
+  try {
+    const newPost = new postModel(req.body);
+    const savedPost = await newPost.save();
+    res
+      .status(201)
+      .json({ message: "Post created successfully", Post: savedPost });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error creating Post", error: error.message });
+  }
+};
+
+module.exports = { getAllPosts, getPost, getPostsByUploaderId, createPost };
