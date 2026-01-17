@@ -38,6 +38,24 @@ const getUser = async (req, res) => {
       });
     }
   };
+
+  const createUser = async (req, res) => {
+    try {
+      const userToCreate = new userModel(req.body);
+      const createdUser = await userToCreate.save();
+  
+      res.status(201).json({
+        message: "User registered successfully",
+        data: createdUser,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Failed to create user",
+        error: error.message,
+      });
+    }
+  };
+  
   
 
-module.exports = { getAllUsers, getUser };
+module.exports = { getAllUsers, getUser, createUser };
