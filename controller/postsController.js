@@ -60,4 +60,15 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = { getAllPosts, getPost, getPostsByUploaderId, createPost };
+const updatePost = async(req,res)=>{
+  try {
+      const id  = req.params.id;
+      const {title , content} = req.body;
+      const updatedPost = await postModel.findByIdAndUpdate(id , {title , content} , {new : true});
+      res.status(200).json({ message: "Post updated successfully", Post: updatedPost });
+    } catch (error) {
+      res.status(500).json({ message: "Error updating Post", error: error.message });
+    }
+}
+
+module.exports = { getAllPosts, getPost, getPostsByUploaderId, createPost, updatePost };
