@@ -60,15 +60,45 @@ const createPost = async (req, res) => {
   }
 };
 
-const updatePost = async(req,res)=>{
+const updatePost = async (req, res) => {
   try {
-      const id  = req.params.id;
-      const {title , content} = req.body;
-      const updatedPost = await postModel.findByIdAndUpdate(id , {title , content} , {new : true});
-      res.status(200).json({ message: "Post updated successfully", Post: updatedPost });
-    } catch (error) {
-      res.status(500).json({ message: "Error updating Post", error: error.message });
-    }
-}
+    const postId = req.params.id;
+    const { title, content } = req.body;
 
-module.exports = { getAllPosts, getPost, getPostsByUploaderId, createPost, updatePost };
+    const updatedPost = await postModel.findByIdAndUpdate(
+      postId,
+      { title, content },
+      { new: true }
+    );
+
+    res.status(200).json({
+      message: "Post details updated",
+      data: updatedPost,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to update post",
+      error: error.message,
+    });
+  }
+};
+
+const deletePost = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    await commentModel.deleteMany({ postId: id });
+    await postModel.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: "Post and related comments removed",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to delete post",
+      error: error.message,
+    });
+  }
+};
+
+module.exports = { getAllPosts, getPost, getPostsByUploaderId, createPost, updatePost, deletePost };
