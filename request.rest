@@ -10,8 +10,8 @@ POST {{baseUrl}}/users/create
 Content-Type: application/json
 
 {
-  "name": "Or Test",
-  "email": "or.test+1@gmail.com",
+  "name": "Test Test2",
+  "email": "test.test2+1@gmail.com",
   "password": "123456"
 }
 
@@ -33,8 +33,8 @@ Content-Type: application/json
 
 {
   "id": "{{userId}}",
-  "name": "Or Updated",
-  "email": "or.updated@gmail.com",
+  "name": "Updated1",
+  "email": "updated1@gmail.com",
   "password": "123456"
 }
 
@@ -55,13 +55,13 @@ GET {{baseUrl}}/posts
 
 ###
 # 2) Get a single post by id
-@postId = 696b95c5cd7e9100129c4e4f
+@postId = 696b9a48221fb92220188186
 GET {{baseUrl}}/posts/{{postId}}
 
 ###
 # 3) Get posts by uploader id
 # Returns all posts created by a specific user.
-@uploaderId = 67444aab0874d4c010cb844d
+@uploaderId = 696b95a0cd7e9100129c4e4b
 GET {{baseUrl}}/posts/uploader?uploaderId={{uploaderId}}
 
 ###
@@ -83,7 +83,7 @@ PUT {{baseUrl}}/posts/update/{{postId}}
 Content-Type: application/json
 
 {
-  "title": "Post Title Updated",
+  "title": "Post Title Updated1",
   "content": "Updated post content"
 }
 
@@ -111,13 +111,13 @@ Content-Type: application/json
 
 {
   "userId": "696b95a0cd7e9100129c4e4b",
-  "postId": "696b9a4c221fb92220188188",
+  "postId": "696ba54e9f012c24989b7d13",
   "text": "Comment text for API test"
 }
 
 ###
 # 3) Update a comment by id
-@commentId = 696b9b06a6488a86636c1684
+@commentId = 696ba4a49f012c24989b7d0a
 PUT {{baseUrl}}/comments/update
 Content-Type: application/json
 
